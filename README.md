@@ -72,7 +72,7 @@ protected $middlewareGroups = [
         'license.guard',
     ],
 ];
-
+```
 ---
 
 ### ✅ License Server Response Format
