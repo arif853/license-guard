@@ -10,21 +10,21 @@ class CheckLicense
 {
     public function handle($request, Closure $next)
     {
-        Log::info('License check middleware triggered.');
+        // Log::info('License check middleware triggered.');
 
         $cached = Cache::get('license_check_result');
-        Log::info('Cache result:', ['value' => $cached]);
+        // Log::info('Cache result:', ['value' => $cached]);
 
         if ($cached !== 'valid') {
-            Log::info('No valid cache found. Making HTTP request...');
+            // Log::info('No valid cache found. Making HTTP request...');
 
-            Log::info('📡 Calling license server', [
-                'url' => config('license-guard.verify_url'),
-                'params' => [
-                    'key' => config('license-guard.license_key'),
-                    'domain' => $request->getHost(),
-                ],
-            ]);
+            // Log::info('📡 Calling license server', [
+            //     'url' => config('license-guard.verify_url'),
+            //     'params' => [
+            //         'key' => config('license-guard.license_key'),
+            //         'domain' => $request->getHost(),
+            //     ],
+            // ]);
 
             $response = Http::timeout(3)->get(config('license-guard.verify_url'), [
                 'key' => config('license-guard.license_key'),
