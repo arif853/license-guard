@@ -1,28 +1,14 @@
+## 🚫 License Guard for Laravel
 
-````markdown
-# License Guard for Laravel
-
-Protect your Laravel application from unauthorized usage with remote license validation.
-
-This package integrates a middleware that checks a license key and domain against a remote server before allowing access to the application.
+**License Guard** is a simple Laravel package to restrict unauthorized usage of your Laravel application by validating license keys via a remote license server.
 
 ---
 
-## 🚀 Features
+### 📦 Installation
 
-- Remote license verification via HTTP request
-- Domain-bound license enforcement
-- Caching to reduce server calls
-- Middleware protection at route or global level
-- Auto-registration via service provider
+#### Step 1: Add GitHub Repo to Composer
 
----
-
-## 📦 Installation
-
-1. **Add repository to your Laravel project:**
-
-In your Laravel project’s `composer.json`:
+In your Laravel project’s `composer.json`, add the following under `"repositories"`:
 
 ```json
 "repositories": [
@@ -31,43 +17,53 @@ In your Laravel project’s `composer.json`:
     "url": "https://github.com/arif853/license-guard"
   }
 ]
-````
+```
 
-2. **Install via Composer:**
+#### Step 2: Require the Package
 
 ```bash
-composer require arif853/license-guard
+composer require arif853/license-guard:dev-main
+```
+
+> If you get a stability error, add these to your Laravel project’s `composer.json`:
+
+```json
+"minimum-stability": "dev",
+"prefer-stable": true
+```
+
+Then run:
+
+```bash
+composer update
 ```
 
 ---
 
-## ⚙️ Configuration
+### ⚙️ Configuration
 
-3. **Publish the config file (optional):**
+#### Step 3: Publish Config File (optional)
 
 ```bash
 php artisan vendor:publish --tag=config
 ```
 
-This will create `config/license-guard.php`.
+#### Step 4: Add Environment Variables
 
-4. **Set your environment values in `.env`:**
+Add the following to your `.env` file:
 
 ```env
-LICENSE_GUARD_KEY=your-license-key
 LICENSE_GUARD_VERIFY_URL=https://your-license-server.com/api/verify-license
+LICENSE_GUARD_KEY=YOUR-LICENSE-KEY-HERE
 ```
-
-Make sure your license server supports `GET` with `key` and `domain` parameters.
 
 ---
 
-## 🔐 Middleware Usage
+### 🔒 Usage
 
-### Option 1: Apply Middleware Manually
+#### Option A: Apply Middleware Globally
 
-
-Then in `app/Http/Kernel.php`:
+In `app/Http/Kernel.php`, under `$middlewareGroups`, add:
 
 ```php
 protected $middlewareGroups = [
@@ -76,7 +72,40 @@ protected $middlewareGroups = [
         'license.guard',
     ],
 ];
+
+---
+
+### ✅ License Server Response Format
+
+Your license server (e.g., Laravel API) must return:
+
+```json
+{
+  "valid": true
+}
 ```
+
+On failure, return:
+
+```json
+{
+  "valid": false,
+  "reason": "expired|not_found|domain_mismatch|inactive"
+}
+```
+
+With proper HTTP status (`403`, `404`, etc.).
+
+---
+
+### 🧠 Features
+
+* License key validation via HTTP
+* Domain matching support
+* Cache for improved performance
+* Middleware-based enforcement
+
+---
 
 ---
 
@@ -86,9 +115,6 @@ This package is proprietary. Unauthorized distribution or use is strictly prohib
 
 ---
 
-## 🧑‍💻 Maintainer
+## 🧑‍💻 Maintainer & Author
 
 Developed and maintained by [Arif Hossen](https://github.com/arif853).
-
----
-
