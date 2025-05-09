@@ -1,8 +1,8 @@
 <?php
-namespace Qbit\LicenseGuard;
+namespace LicenseGuard;
 
 use Illuminate\Support\ServiceProvider;
-use Qbit\LicenseGuard\Middleware\CheckLicense;
+use LicenseGuard\Middleware\CheckLicense;
 
 class LicenseGuardServiceProvider extends ServiceProvider
 {

@@ -1,19 +1,20 @@
 {
-     "name": "license-guard",
-     "description": "Protect your Laravel project with remote license validation.",
-     "autoload": {
-       "psr-4": {
-         "Qbit\\LicenseGuard\\": "src/"
-       }
-     },
-     "extra": {
-       "laravel": {
-         "providers": [
-           "Qbit\\LicenseGuard\\LicenseGuardServiceProvider"
-         ]
-       }
-     },
-     "minimum-stability": "dev",
-     "license": "proprietary"
-   }
+  "name": "license-guard",
+  "description": "Protect your Laravel project with remote license validation.",
+  "autoload": {
+    "psr-4": {
+      "LicenseGuard\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "LicenseGuard\\LicenseGuardServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "license": "proprietary"
+}
+
    

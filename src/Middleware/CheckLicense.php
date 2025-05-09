@@ -1,5 +1,5 @@
 <?php
-namespace Qbit\LicenseGuard\Middleware;
+namespace LicenseGuard\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Http;
