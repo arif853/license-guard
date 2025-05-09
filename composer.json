@@ -3,13 +3,13 @@
   "description": "Protect your Laravel project with remote license validation.",
   "autoload": {
     "psr-4": {
-      "LicenseGuard\\": "src/"
+      "arif853\\LicenseGuard\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "LicenseGuard\\LicenseGuardServiceProvider"
+        "arif853\\LicenseGuard\\LicenseGuardServiceProvider"
       ]
     }
   },

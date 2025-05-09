@@ -1,5 +1,5 @@
 <?php
-namespace LicenseGuard;
+namespace arif853\LicenseGuard;
 
 use Illuminate\Support\ServiceProvider;
 use LicenseGuard\Middleware\CheckLicense;
