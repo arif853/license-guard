@@ -1,147 +1,132 @@
-#License Guard
-
-**License Guard** is a lightweight Laravel package that protects your application from unauthorized usage by validating a license key against a remote license server.
-
-## 🚀 Features
-
-- Validates license key and domain against your server
-- Caches result to reduce server load
-- Blocks unauthorized users with a `403 Forbidden` response
-- Easily reusable across multiple Laravel projects
+Thanks! Since your package is now available at [https://github.com/arif853/license-guard](https://github.com/arif853/license-guard), here is a complete **README.md** you can add to your repository to help others (or yourself) install and use it in any Laravel project:
 
 ---
 
-## 📦 Installation
+## 🚫 License Guard for Laravel
+
+**License Guard** is a simple Laravel package to restrict unauthorized usage of your Laravel application by validating license keys via a remote license server.
+
+---
+
+### 📦 Installation
+
+#### Step 1: Add GitHub Repo to Composer
+
+In your Laravel project’s `composer.json`, add the following under `"repositories"`:
+
+```json
+"repositories": [
+  {
+    "type": "vcs",
+    "url": "https://github.com/arif853/license-guard"
+  }
+]
+```
+
+#### Step 2: Require the Package
 
 ```bash
-composer require qbit/license-guard
-````
+composer require license-guard:dev-main
+```
 
-> ⚠️ If your package isn't published to Packagist, include it as a path or VCS repository in your `composer.json`.
+> If you get a stability error, add these to your Laravel project’s `composer.json`:
+
+```json
+"minimum-stability": "dev",
+"prefer-stable": true
+```
+
+Then run:
+
+```bash
+composer update
+```
 
 ---
 
-## ⚙️ Configuration
+### ⚙️ Configuration
 
-### 1. Publish the config file
+#### Step 3: Publish Config File (optional)
 
 ```bash
 php artisan vendor:publish --tag=license-guard-config
 ```
 
-This will create `config/license-guard.php`:
+#### Step 4: Add Environment Variables
 
-```php
-return [
-    'verify_url' => env('LICENSE_GUARD_VERIFY_URL'),
-    'license_key' => env('LICENSE_GUARD_KEY'),
-];
-```
-
-### 2. Set environment variables in `.env`
+Add the following to your `.env` file:
 
 ```env
 LICENSE_GUARD_VERIFY_URL=https://your-license-server.com/api/verify-license
-LICENSE_GUARD_KEY=YOUR-LICENSE-KEY
+LICENSE_GUARD_KEY=YOUR-LICENSE-KEY-HERE
 ```
 
 ---
 
-## 🛡️ Middleware Usage
+### 🔒 Usage
 
-Register the middleware in your `app/Http/Kernel.php`:
+#### Option A: Apply Middleware Globally
+
+In `app/Http/Kernel.php`, under `$middleware`, add:
 
 ```php
-protected $middleware = [
-    \Qbit\LicenseGuard\Middleware\LicenseGuard::class,
-    // ...
-];
+\Qbit\LicenseGuard\Middleware\LicenseGuard::class,
 ```
 
-Or apply it to specific routes or route groups:
+#### Option B: Apply Middleware to Routes
+
+In `Kernel.php`, add to `$routeMiddleware`:
+
+```php
+'license.guard' => \Qbit\LicenseGuard\Middleware\LicenseGuard::class,
+```
+
+Then use it in your routes:
 
 ```php
 Route::middleware(['license.guard'])->group(function () {
-    // Protected routes
+    Route::get('/dashboard', fn () => view('dashboard'));
 });
 ```
 
 ---
 
-## 🔍 How It Works
+### ✅ License Server Response Format
 
-* On each request (or first within 12 hours), it sends a `GET` request to your license server with:
-
-  * `key` – license key
-  * `domain` – request domain
-
-Example request:
-
-```
-GET https://your-license-server.com/api/verify-license?key=XXXX&domain=example.com
-```
-
-* The license server should return:
+Your license server (e.g., Laravel API) must return:
 
 ```json
-{ "valid": true }
+{
+  "valid": true
+}
 ```
 
-Or an error:
+On failure, return:
 
 ```json
-{ "valid": false, "reason": "expired" }
+{
+  "valid": false,
+  "reason": "expired|not_found|domain_mismatch|inactive"
+}
 ```
 
-If the license is **not valid**, the middleware aborts with HTTP 403.
+With proper HTTP status (`403`, `404`, etc.).
 
 ---
 
-## 🧪 License Server API Example
+### 🧠 Features
 
-Example Laravel route:
-
-```php
-Route::get('/api/verify-license', function (Request $request) {
-    $license = \App\Models\License::where('license_key', $request->get('key'))->first();
-
-    if (! $license || $license->domain !== $request->get('domain')) {
-        return response()->json(['valid' => false], 403);
-    }
-
-    return response()->json(['valid' => true]);
-});
-```
+* License key validation via HTTP
+* Domain matching support
+* Cache for improved performance
+* Middleware-based enforcement
 
 ---
 
-## 🧠 Caching Behavior
+### 👨‍💻 Author
 
-* The package caches a successful license check for 12 hours.
-* This reduces license server hits.
-* You can clear cache via:
-
-```php
-Cache::forget('license_check_result');
-```
+**[Arif Hossen](https://github.com/arif853)** — QBit Tech
 
 ---
 
-## 🛠️ Troubleshooting
-
-* Ensure your license server route is accessible and responds with `application/json`.
-* If using HTTPS, check SSL is valid.
-* Use Laravel logs (`storage/logs/laravel.log`) for debugging request and response issues.
-
----
-
-## 🧾 License
-
-MIT License © [QBit Tech](https://qbit-tech.com)
-
-```
-
----
-
-Let me know if you'd like a `LicenseController` stub or to automate license creation from the server side.
-```
+Let me know if you want a logo or badge added at the top of the README too!

@@ -1,5 +1,5 @@
 {
-     "name": "qbit/license-guard",
+     "name": "license-guard",
      "description": "Protect your Laravel project with remote license validation.",
      "autoload": {
        "psr-4": {
