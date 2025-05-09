@@ -1,7 +1,3 @@
-Thanks! Since your package is now available at [https://github.com/arif853/license-guard](https://github.com/arif853/license-guard), here is a complete **README.md** you can add to your repository to help others (or yourself) install and use it in any Laravel project:
-
----
-
 ## 🚫 License Guard for Laravel
 
 **License Guard** is a simple Laravel package to restrict unauthorized usage of your Laravel application by validating license keys via a remote license server.
