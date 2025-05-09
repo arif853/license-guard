@@ -1,6 +1,3 @@
-Here's a clean and professional `README.md` for your Laravel License Guard package:
-
----
 
 ````markdown
 # License Guard for Laravel
@@ -95,7 +92,3 @@ Developed and maintained by [Arif Hossen](https://github.com/arif853).
 
 ---
 
-```
-
-Let me know if you'd like it tailored for publishing to [Packagist](https://packagist.org) or private registry instructions.
-```
