@@ -1,5 +1,5 @@
 {
-  "name": "license-guard",
+  "name": "arif853/license-guard",
   "description": "Protect your Laravel project with remote license validation.",
   "autoload": {
     "psr-4": {
@@ -16,5 +16,3 @@
   "minimum-stability": "dev",
   "license": "proprietary"
 }
-
-   
