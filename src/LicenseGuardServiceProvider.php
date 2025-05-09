@@ -1,8 +1,8 @@
 <?php
-namespace arif853\LicenseGuard;
+namespace Arif853\LicenseGuard;
 
 use Illuminate\Support\ServiceProvider;
-use LicenseGuard\Middleware\CheckLicense;
+use Arif853\LicenseGuard\Middleware\CheckLicense;
 
 class LicenseGuardServiceProvider extends ServiceProvider
 {

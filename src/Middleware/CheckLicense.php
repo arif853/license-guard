@@ -1,5 +1,5 @@
 <?php
-namespace arif853\LicenseGuard\Middleware;
+namespace Arif853\LicenseGuard\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Http;
