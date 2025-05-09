@@ -1,14 +1,31 @@
-## 🚫 License Guard for Laravel
-
-**License Guard** is a simple Laravel package to restrict unauthorized usage of your Laravel application by validating license keys via a remote license server.
+Here's a clean and professional `README.md` for your Laravel License Guard package:
 
 ---
 
-### 📦 Installation
+````markdown
+# License Guard for Laravel
 
-#### Step 1: Add GitHub Repo to Composer
+Protect your Laravel application from unauthorized usage with remote license validation.
 
-In your Laravel project’s `composer.json`, add the following under `"repositories"`:
+This package integrates a middleware that checks a license key and domain against a remote server before allowing access to the application.
+
+---
+
+## 🚀 Features
+
+- Remote license verification via HTTP request
+- Domain-bound license enforcement
+- Caching to reduce server calls
+- Middleware protection at route or global level
+- Auto-registration via service provider
+
+---
+
+## 📦 Installation
+
+1. **Add repository to your Laravel project:**
+
+In your Laravel project’s `composer.json`:
 
 ```json
 "repositories": [
@@ -17,112 +34,68 @@ In your Laravel project’s `composer.json`, add the following under `"repositor
     "url": "https://github.com/arif853/license-guard"
   }
 ]
-```
+````
 
-#### Step 2: Require the Package
-
-```bash
-composer require arif853/license-guard:dev-main
-```
-
-> If you get a stability error, add these to your Laravel project’s `composer.json`:
-
-```json
-"minimum-stability": "dev",
-"prefer-stable": true
-```
-
-Then run:
+2. **Install via Composer:**
 
 ```bash
-composer update
+composer require arif853/license-guard
 ```
 
 ---
 
-### ⚙️ Configuration
+## ⚙️ Configuration
 
-#### Step 3: Publish Config File (optional)
+3. **Publish the config file (optional):**
 
 ```bash
-php artisan vendor:publish --tag=license-guard-config
+php artisan vendor:publish --tag=config
 ```
 
-#### Step 4: Add Environment Variables
+This will create `config/license-guard.php`.
 
-Add the following to your `.env` file:
+4. **Set your environment values in `.env`:**
 
 ```env
+LICENSE_GUARD_KEY=your-license-key
 LICENSE_GUARD_VERIFY_URL=https://your-license-server.com/api/verify-license
-LICENSE_GUARD_KEY=YOUR-LICENSE-KEY-HERE
 ```
+
+Make sure your license server supports `GET` with `key` and `domain` parameters.
 
 ---
 
-### 🔒 Usage
+## 🔐 Middleware Usage
 
-#### Option A: Apply Middleware Globally
+### Option 1: Apply Middleware Manually
 
-In `app/Http/Kernel.php`, under `$middleware`, add:
+
+Then in `app/Http/Kernel.php`:
 
 ```php
-\Qbit\LicenseGuard\Middleware\LicenseGuard::class,
-```
-
-#### Option B: Apply Middleware to Routes
-
-In `Kernel.php`, add to `$routeMiddleware`:
-
-```php
-'license.guard' => \Qbit\LicenseGuard\Middleware\LicenseGuard::class,
-```
-
-Then use it in your routes:
-
-```php
-Route::middleware(['license.guard'])->group(function () {
-    Route::get('/dashboard', fn () => view('dashboard'));
-});
+protected $middlewareGroups = [
+    'web' => [
+        // other middleware...
+        'license.guard',
+    ],
+];
 ```
 
 ---
 
-### ✅ License Server Response Format
+## 🛡️ License
 
-Your license server (e.g., Laravel API) must return:
+This package is proprietary. Unauthorized distribution or use is strictly prohibited.
 
-```json
-{
-  "valid": true
-}
+---
+
+## 🧑‍💻 Maintainer
+
+Developed and maintained by [Arif Hossen](https://github.com/arif853).
+
+---
+
 ```
 
-On failure, return:
-
-```json
-{
-  "valid": false,
-  "reason": "expired|not_found|domain_mismatch|inactive"
-}
+Let me know if you'd like it tailored for publishing to [Packagist](https://packagist.org) or private registry instructions.
 ```
-
-With proper HTTP status (`403`, `404`, etc.).
-
----
-
-### 🧠 Features
-
-* License key validation via HTTP
-* Domain matching support
-* Cache for improved performance
-* Middleware-based enforcement
-
----
-
-### 👨‍💻 Author
-
-**[Arif Hossen](https://github.com/arif853)** — QBit Tech
-
----
-
-Let me know if you want a logo or badge added at the top of the README too!

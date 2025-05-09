@@ -15,9 +15,16 @@ class LicenseGuardServiceProvider extends ServiceProvider
 
         // Register middleware globally
         $router = $this->app['router'];
-        $router->pushMiddlewareToGroup('web', CheckLicense::class);
+        $router->aliasMiddleware('license.guard', \Arif853\LicenseGuard\Middleware\CheckLicense::class);
+
+        // $router->pushMiddlewareToGroup('web', CheckLicense::class);
     }
 
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
     public function register()
     {
         $this->mergeConfigFrom(__DIR__.'/../config/license-guard.php', 'license-guard');
