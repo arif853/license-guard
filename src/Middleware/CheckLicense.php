@@ -37,8 +37,21 @@ class CheckLicense
             ]);
 
             if (! $response->ok() || ! $response->json('valid')) {
-                Log::warning('License check failed. Blocking access.');
-                abort(403, 'Unauthorized software usage detected.');
+                $reason = $response->json('reason') ?? 'invalid';
+
+                // Map reason to a more user-friendly message
+                $messages = [
+                    'expired' => 'Your license has expired. Please renew to continue using the software.',
+                    'not_found' => 'License not found. Please check your license key.',
+                    'domain_mismatch' => 'Invalid license key or domain mismatch.',
+                    'inactive' => 'Your license has been suspended. Contact support.',
+                ];
+
+                $message = 'Unauthorized software usage detected. ' . $messages[$reason]  ?? 'Unauthorized software usage detected.';
+
+                Log::warning("License check failed ({$reason}). Blocking access.");
+
+                abort(403, $message);
             }
 
             Log::info('License is valid. Caching result for 12 hours.');
