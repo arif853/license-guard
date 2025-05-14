@@ -53,8 +53,8 @@ php artisan vendor:publish --tag=config
 Add the following to your `.env` file:
 
 ```env
-LICENSE_GUARD_VERIFY_URL=https://your-license-server.com/api/verify-license
-LICENSE_GUARD_KEY=YOUR-LICENSE-KEY-HERE
+LICENSE_KEY=YOUR-LICENSE-KEY-HERE
+LICENSE_VERIFY_URL=https://license-server.arifhossen.info/api/verify-license
 ```
 
 ---
