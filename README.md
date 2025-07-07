@@ -22,7 +22,7 @@ In your Laravel project’s `composer.json`, add the following under `"repositor
 #### Step 2: Require the Package
 
 ```bash
-composer require arif853/license-guard:dev-main
+composer require arif853/license-guard:v0.1.2
 ```
 
 > If you get a stability error, add these to your Laravel project’s `composer.json`:
